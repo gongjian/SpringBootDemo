@@ -1,12 +1,11 @@
 package com.example.demo.configuration;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
-import com.example.demo.entity.PersonAttribute;
+import com.example.demo.model.PersonAttribute;
 
 @Configuration
 @Profile("prod")
@@ -14,7 +13,6 @@ import com.example.demo.entity.PersonAttribute;
 public class ProdConfig {
 	
 	@Bean	
-	@ConfigurationProperties(prefix="person")
 	public PersonAttribute personAttribute(){
 		return new PersonAttribute();
 	}

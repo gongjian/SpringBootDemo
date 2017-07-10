@@ -1,10 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
-@PropertySource("classpath:person.properties")
-@ConfigurationProperties(prefix = "person")
+@ConfigurationProperties(prefix="person")
 public class PersonAttribute {
 	private String name;
 	private String sex;
