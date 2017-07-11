@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Orgnization implements Serializable {
+public class Organization implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -32,8 +32,8 @@ public class User implements Serializable {
 	private String password;
 
 	@ManyToOne
-	@JoinColumn(name = "orgnization_id")
-	private Orgnization orgnization;
+	@JoinColumn(name = "organization_id")
+	private Organization organization;
 
 	@ManyToMany
 	private List<Role> roles;
@@ -65,12 +65,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Orgnization getOrgnization() {
-		return orgnization;
+	public Organization getOrganization() {
+		return organization;
 	}
 
-	public void setOrgnization(Orgnization orgnization) {
-		this.orgnization = orgnization;
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	public List<Role> getRoles() {
