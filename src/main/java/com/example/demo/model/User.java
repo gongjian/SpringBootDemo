@@ -40,6 +40,17 @@ public class User implements Serializable {
 
 	public User() {
 	}
+	
+	public User(String text){
+		String[] arr = text.split("-");
+		this.id = new Long(arr[0]);
+		this.userName = arr[1];
+		this.password = arr[2];
+	}
+	
+	public String getUser(){
+		return this.id + "-" + this.userName + "-" + this.password;
+	}
 
 	public long getId() {
 		return id;

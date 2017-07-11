@@ -11,8 +11,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class I18nConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
+	//国际化
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -33,5 +34,27 @@ public class I18nConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
 	}
-
+	
+	//自定义HttpMessageConveters
+	// 1. @Bean定义
+	/*@Bean
+	public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+		return new ByteArrayHttpMessageConverter();
+	}*/
+	
+	//2. configureMessageConverters
+	/*@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new ByteArrayHttpMessageConverter());
+	}*/
+	
+	//3. extendMessageConverters
+	/*@Override
+	public void
+	extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.clear();
+		converters.add(new ByteArrayHttpMessageConverter());
+	}*/
+	
+	
 }
