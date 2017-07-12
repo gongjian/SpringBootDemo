@@ -10,7 +10,7 @@ import com.example.demo.model.PersonAttribute;
 @Configuration
 @Profile("dev")
 @PropertySource("classpath:person-dev.properties")
-public class DevConfig {
+public class DevConfiguration {
 	
 	@Bean	
 	public PersonAttribute personAttribute(){

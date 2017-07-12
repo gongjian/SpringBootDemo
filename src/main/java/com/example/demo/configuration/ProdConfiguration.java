@@ -10,7 +10,7 @@ import com.example.demo.model.PersonAttribute;
 @Configuration
 @Profile("prod")
 @PropertySource("classpath:person-prod.properties")
-public class ProdConfig {
+public class ProdConfiguration {
 	
 	@Bean	
 	public PersonAttribute personAttribute(){

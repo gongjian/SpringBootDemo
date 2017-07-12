@@ -4,6 +4,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 /*@EnableScheduling*/
-public class TaskScheduleConfig {
+public class TaskScheduleConfiguration {
 
 }
