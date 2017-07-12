@@ -8,37 +8,37 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @ConditionalOnExpression(value = "${tomcat.ssl.enable:false}")
 @Configuration
-@PropertySource("classpath:/tomcat.ssl.properties")
 public class CustomTomcatSSLConfiguration {
 
-	@Value("${tomcat.ssl.port:false}")
-	private Boolean enabled;
+	@Value("${tomcat.ssl.enable:false}")
+	private Boolean enable;
 
 	@Value("${tomcat.ssl.port:8443}")
 	private Integer port;
 
-	@Value("${tomcat.ssl.scheme:false}")
+	@Value("${tomcat.ssl.scheme:https}")
 	private String scheme;
 
 	@Value("${tomcat.ssl.secure:false}")
 	private Boolean secure;
 
-	@Value("${tomcat.ssl.port:}")
+	@Value("${tomcat.ssl.absoluteKeystoreFile}")
 	private String absoluteKeystoreFile;
 
-	@Value("${tomcat.ssl.port:654321}")
+	@Value("${tomcat.ssl.keystorePassword:654321}")
 	private String keystorePassword;
 
 	@Value("${tomcat.ssl.keystoreAlias:tomcat}")
 	private String keystoreAlias;
 
+	// SSL
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+
 		tomcat.addAdditionalTomcatConnectors(createSslConnector());
 
 		return tomcat;
@@ -49,7 +49,7 @@ public class CustomTomcatSSLConfiguration {
 		Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
 		try {
 			connector.setScheme(scheme);
-			protocol.setSSLEnabled(enabled);
+			protocol.setSSLEnabled(enable);
 			connector.setSecure(secure);
 			connector.setPort(port);
 			protocol.setKeystoreFile(absoluteKeystoreFile);

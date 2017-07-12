@@ -2,8 +2,10 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
+@PropertySource("classpath:/tomcat.ssl.properties")
 public class SpringBootDemoApplication {
 
 	public static void main(String[] args) {
