@@ -28,7 +28,7 @@ public class MockMvcWebTests {
 
 	@Test
 	public void login() throws Exception {
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/login?userName=sam"))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/getAllUsers"))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getContentAsString();
 
 		System.out.println("responseString: " + responseString);
