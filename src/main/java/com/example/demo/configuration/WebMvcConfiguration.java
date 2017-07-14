@@ -1,5 +1,6 @@
 package com.example.demo.configuration;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -7,6 +8,9 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.util.UrlPathHelper;
 
 import com.example.demo.interceptor.LogInterceptor;
+import com.example.demo.messageconverter.MyMessageConverter;
 
 @Configuration
 @EnableWebMvc
@@ -75,7 +80,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	 * ByteArrayHttpMessageConverter(); }
 	 */
 
-	// 2. configureMessageConverters
+	// 2. configureMessageConverters, 会覆盖
 	/*
 	 * @Override public void
 	 * configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -83,12 +88,16 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	 */
 
 	// 3. extendMessageConverters
-	/*
-	 * @Override public void
-	 * extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-	 * converters.clear(); converters.add(new ByteArrayHttpMessageConverter());
-	 * }
-	 */
+
+	@Bean
+	public MyMessageConverter converter() {
+		return new MyMessageConverter();
+	}
+
+	@Override
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(converter());
+	}
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -113,15 +122,22 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
 
-		registry.addResourceHandler("/internal/**").addResourceLocations("classpath:/");
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/");
 	}
 
 	// 页面跳转配置
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/index").setViewName("/index");
+		registry.addViewController("/converter").setViewName("/converter");
 	}
-	
-	
+
+	// 上传配置
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1000000);
+
+		return multipartResolver();
+	}
 
 }

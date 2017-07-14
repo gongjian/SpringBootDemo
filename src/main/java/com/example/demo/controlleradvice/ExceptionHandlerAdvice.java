@@ -14,6 +14,8 @@ public class ExceptionHandlerAdvice {
 	public ModelAndView exception(Exception e, WebRequest request) {
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("message", e.getMessage());
+		
+		e.printStackTrace();
 
 		return mv;
 	}
