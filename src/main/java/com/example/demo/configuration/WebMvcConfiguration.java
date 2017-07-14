@@ -8,6 +8,7 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -16,7 +17,10 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.example.demo.interceptor.LogInterceptor;
+
 @Configuration
+@EnableWebMvc
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 	// 国际化
@@ -36,9 +40,15 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		return lci;
 	}
 
+	@Bean
+	public LogInterceptor logInterceptor() {
+		return new LogInterceptor();
+	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
+		registry.addInterceptor(logInterceptor());
 	}
 
 	// 设置session过期时间
