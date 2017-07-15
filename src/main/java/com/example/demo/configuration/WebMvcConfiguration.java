@@ -12,7 +12,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,7 +25,7 @@ import com.example.demo.interceptor.LogInterceptor;
 import com.example.demo.messageconverter.MyMessageConverter;
 
 @Configuration
-@EnableWebMvc
+/* @EnableWebMvc */
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 	// 国际化
@@ -60,8 +59,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	// 设置session过期时间
 	@Bean
 	public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizer() {
+
 		/*
-		 * return new EmbeddedServletContainerCustomizer(){
+		 * return new EmbeddedServletContainerCustomizer() {
 		 * 
 		 * @Override public void customize(ConfigurableEmbeddedServletContainer
 		 * container) { container.setSessionTimeout(1, TimeUnit.MINUTES); } };
@@ -70,14 +70,24 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		return (ConfigurableEmbeddedServletContainer container) -> {
 			container.setSessionTimeout(1, TimeUnit.MINUTES);
 		};
+
 	}
+
+	// For Tomcat
+	/*
+	 * @Bean public EmbeddedServletContainerFactory
+	 * embeddedServletContainerFactory() { TomcatEmbeddedServletContainerFactory
+	 * factory = new TomcatEmbeddedServletContainerFactory();
+	 * factory.setSessionTimeout(1, TimeUnit.MINUTES);
+	 * 
+	 * return factory; }
+	 */
 
 	// 自定义HttpMessageConveters
 	// 1. @Bean定义
 	/*
-	 * @Bean public ByteArrayHttpMessageConverter
-	 * byteArrayHttpMessageConverter() { return new
-	 * ByteArrayHttpMessageConverter(); }
+	 * @Bean public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+	 * return new ByteArrayHttpMessageConverter(); }
 	 */
 
 	// 2. configureMessageConverters, 会覆盖
@@ -139,5 +149,29 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
 		return multipartResolver();
 	}
+
+	/*
+	 * //注册servlet
+	 * 
+	 * @Bean public ServletRegistrationBean servletRegistrationBean() { return new
+	 * ServletRegistrationBean(new XXServlet(), "/XX"); }
+	 */
+
+	// 注册Filter
+	/*
+	 * @Bean public FilterRegistrationBean filterRegistrationBean() {
+	 * FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+	 * registrationBean.setFilter(new XXFilter());
+	 * registrationBean.addUrlPatterns("/XX"); registrationBean.setOrder(2);
+	 * 
+	 * return registrationBean; }
+	 */
+
+	// 注册Listener
+	/*
+	 * @Bean public ServletListenerRegistrationBean<XXListener>
+	 * servletListenerRegistrationBean() { return new
+	 * ServletListenerRegistrationBean<XXListener>(new XXListener()); }
+	 */
 
 }

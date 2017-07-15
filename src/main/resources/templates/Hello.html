@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>hello</title>
+<link rel="icon" type="image/x-icon" th:href="@{/static/favicon.ico}" />
+<link th:href="@{static/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+<link th:href="@{static/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -12,12 +15,25 @@
 
 	<p th:text="'Hello！, ' + ${name} + '!'">3333</p>
 	
+	<h3 th:text="#{hello}"></h3>
+	
 	<div th:if="@{not #lists.isEmpty(nameList)}">
-		<h3>Loop the name</h3>
-		<li th:each="nameStr:${nameList}">
-			<span th:text="${nameStr}"></span>
-		</li>
+		<div class="panel-heading">Loop the name</div>
+		<div class="panel-body">
+			<div th:each="nameStr:${nameList}">
+				<span th:text="${nameStr}"></span>
+				<button class="btn" th:onclick="'getName(\'' + ${nameStr} + '\');'" >获取名字</button>
+			</div>
+		</div>
 	</div>
+	
+	<script type="text/javascript" th:src="@{static/jquery-3.2.1.min.js}"></script>
+	
+	<script th:inline="javascript">
+		function getName(name) {
+			console.log(name);
+		}
+	</script>
 
 </body>
 </html>
