@@ -5,8 +5,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<script th:inline="javascript">
+		var name = [[${name}]];
+		console.log(name);
+	</script>
+
 	<p th:text="'Hello！, ' + ${name} + '!'">3333</p>
 	
-	<h1 th:text="#{hello}"></h1>
+	<div th:if="@{not #lists.isEmpty(nameList)}">
+		<h3>Loop the name</h3>
+		<li th:each="nameStr:${nameList}">
+			<span th:text="${nameStr}"></span>
+		</li>
+	</div>
+
 </body>
 </html>
