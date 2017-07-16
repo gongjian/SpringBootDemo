@@ -140,6 +140,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/index").setViewName("/index");
 		registry.addViewController("/converter").setViewName("/converter");
+		registry.addViewController("/ws").setViewName("/ws");
 	}
 
 	// 上传配置
