@@ -141,6 +141,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/index").setViewName("/index");
 		registry.addViewController("/converter").setViewName("/converter");
 		registry.addViewController("/ws").setViewName("/ws");
+		registry.addViewController("/login").setViewName("/login");
+		registry.addViewController("/chat").setViewName("/chat");
 	}
 
 	// 上传配置
